@@ -34,12 +34,20 @@ func main() {
 	const typedAge int = 38
 	const untypedAge = 38 
 	fmt.Println(typedAge == untypedAge) // true, same value but different types
+	
+	result := add(3, 4)
+	fmt.Println("This is result", result)
 
-	// no enums in Go, but we can use constants
-	const (
-		Jan int = iota + 1 // iota starts at 0, so Jan is 1
-		Feb // 2
-		Mar // 3
-		Apr // 4
-	)
+	sum, product := calculateSumAndProduct(10, 10)
+	fmt.Printf("Sum: %d, Product: %d\n", sum, product)
+}
+
+// if you have a return type, the function must return a value of that type
+// if you don't have a return type, the function can return nothing
+func add(a int, b int) int {
+	return a + b
+}
+
+func calculateSumAndProduct(a int, b int) (int, int) {
+	return a + b, a * b
 }
