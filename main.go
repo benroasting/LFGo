@@ -4,91 +4,64 @@ import (
 	"fmt"
 )
 
-func main() {
-	age := 30
-	if age >= 18 {
-		fmt.Println("You are an adult")
-	} else if age >= 13 {
-		fmt.Println("You are a teenager")
-	} else {
-		fmt.Println("You are a child")
-	}
-
-	day := "Tuesday"
-	switch day {
-	case "Monday":
-		fmt.Println("Start of the week")
-	case "Tuesday", "Wednesday", "Thursday":
-		fmt.Println("Midweek")
-	case "Friday":
-		fmt.Println("TGIF")
-	default: 
-		fmt.Println("Weekend") 
-	}
-
-	for i := 0; i < 5; i++ {
-		fmt.Println("Iteration:", i)
-	}
-
-	// while loop in Go is just a for loop with a condition
-	counter := 0
-	for counter < 5 {
-		fmt.Println("Counter:", counter)
-		counter++
-	}
-
-	// infinite loop if needed
-	
-	iterations := 0
-	for  {
-		if iterations >3 {
-			break
-		}
-		iterations++
-	}
-
-	// Arrays and slices
-	// Arrays are fixed size, slices are dynamic
-	// [5]int is an array of 5 integers
-	number := [5]int{10,20,30,40,50}
-	// arrays cannot be changed after declaration
-	fmt.Printf("this is our array: %v\n", number)
-	fmt.Println("this is our last value", number[len(number)-2])
-
-	matrix := [2][3]int{
-		{1, 2, 3},
-		{4, 5, 6},
-	}
-
-	fmt.Printf("this is our matrix: %v\n", matrix)
-
-	// allNumbers := number[:];
-	// firstThree := number[0:3]
-
-	fruits := []string{"apple", "banana", "cherry"}
-	fmt.Printf("this is our slice of fruits: %v\n", fruits)
-
-	fruits = append(fruits, "strawberry")
-	fmt.Printf("after appending, our slice of fruits is: %v\n", fruits)
-
-	for index, value := range fruits {
-		fmt.Printf("Index: %d, Value: %s\n", index, value)
-	}
-
-	// Maps, same as HashMaps in other languages
-	capitalCities := map[string]string{
-		"USA":      "Washington, D.C.",
-		"France":   "Paris",
-		"Germany":  "Berlin",
-		"Japan":    "Tokyo",
-	}
-
-	fmt.Println("Capital of USA:", capitalCities["USA"])
-	capital, exists := capitalCities["Italy"]
-	if exists {
-		fmt.Println("this is the capital:", capital)
-	} else {
-		fmt.Println("Does not exist")
-	}
+type Person struct {
+	Name string
+	Age  int
 }
+
+func main() {
+	person := Person{Name: "John", Age: 30}
+
+	employee := struct {
+		name string
+		id   int
+	}{
+		name: "Alice",
+		id:   123,
+	}
+
+	type Address struct {
+		Street string
+		City   string
+	}
+
+	type Contact struct {
+		Name    string
+		Address Address
+		Phone   string
+	}
+
+	contact := Contact {
+		Name: "Mark",
+		Address: Address {
+			Street: "123 Main St",
+			City: "Anytown",
+		},
+	}
+
+ 	fmt.Println("This is our contact", contact);
+	fmt.Println("This is our employee", employee);
+
+	fmt.Println("Name before", person.Name);
+	person.modifyPersonName("Ben")	
+	fmt.Println("Name after", person.Name);
+
+	x := 20
+    ptr := &x
+	fmt.Printf("Value of x: %d and address of x %p\n", x, ptr);
+	*ptr = 30
+	fmt.Printf("Value of new x: %d and address of x %p\n", x, ptr);
+}
+
+// Name is only modified in the scope of the function
+// func modifyPersonName(p *Person) {
+// 	p.Name = "Ben"
+// 	fmt.Println("Inside Name after", p.Name);
+// }
+
+func (p *Person) modifyPersonName(name string) {
+	p.Name = name
+	fmt.Println("Inside method name", p.Name);
+}
+
 
