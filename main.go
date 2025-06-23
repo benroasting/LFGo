@@ -74,6 +74,21 @@ func main() {
 	for index, value := range fruits {
 		fmt.Printf("Index: %d, Value: %s\n", index, value)
 	}
-}
 
+	// Maps, same as HashMaps in other languages
+	capitalCities := map[string]string{
+		"USA":      "Washington, D.C.",
+		"France":   "Paris",
+		"Germany":  "Berlin",
+		"Japan":    "Tokyo",
+	}
+
+	fmt.Println("Capital of USA:", capitalCities["USA"])
+	capital, exists := capitalCities["Italy"]
+	if exists {
+		fmt.Println("this is the capital:", capital)
+	} else {
+		fmt.Println("Does not exist")
+	}
+}
 
