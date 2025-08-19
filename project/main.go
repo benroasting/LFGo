@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"goProject/internal/app"
+	"goProject/internal/routes"
 	"net/http"
 	"time"
 )
@@ -20,10 +21,11 @@ func main() {
 	}
 
 	
-	http.HandleFunc("/health", HealthCheck)
 	
+	r := routes.SetupRoutes(app)
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),
+		Handler: r,
 		IdleTimeout: time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
