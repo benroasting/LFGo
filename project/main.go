@@ -36,6 +36,7 @@ func main() {
 	if err != nil {
 		app.Logger.Fatal(err)
 	}
+	defer app.DB.Close()
 
 }
 
