@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"goProject/internal/api"
+	"goProject/internal/migrations"
 	"goProject/internal/store"
 	"log"
 	"net/http"
@@ -20,6 +21,11 @@ func NewApplication() (*Application, error) {
 	pgDB, err := store.Open()
 	if err != nil {
 		return nil, err
+	} 
+
+	err = store.MigrateFS(pgDB, migrations.FS, ".")
+	if err != nil {
+	  panic(err)
 	}
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
